@@ -5,9 +5,6 @@ import (
 	"net/http"
 )
 
-var urlStore map[string]string = make(map[string]string)
-var counter int = 0
-
 func shortenHandler(w http.ResponseWriter, r *http.Request) {
 
 	//parsing the POST form
