@@ -7,7 +7,6 @@ import (
 	"time"
 )
 
-//TODO store the counter and the map to disk, so that it can be saved and loaded
 //TODO find better algorithm to convert int to String sequeneces
 
 func main() {
@@ -22,6 +21,7 @@ func main() {
 	http.Handle("/", fileServer)
 	http.HandleFunc("/shorten", shortenHandler)
 	http.HandleFunc("/r", redirectHandler)
+	http.HandleFunc("/show", showUrlsHandler)
 
 	//startup backup task
 	ticker := time.NewTicker(time.Minute * 5)

@@ -5,6 +5,12 @@ import (
 	"net/http"
 )
 
+// showUrlsHandler [route "/shorten"]
+// takes a "long" parameter via POST and generates a new unique short code
+// for it that maps to it
+// Finally it renders a simple response that show the new mapping in the format
+// http://localhost:8080/r?s=key
+// x-ref redirectHandler for this route
 func shortenHandler(w http.ResponseWriter, r *http.Request) {
 
 	//parsing the POST form
@@ -30,6 +36,10 @@ func shortenHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// redirectHandler [route "/r"]
+// takes the parameter "s" via GET that contains a key into the key-value store
+// and redirects to the corresponding mapping
+// if the key is invalid it renders a simple error message
 func redirectHandler(w http.ResponseWriter, r *http.Request) {
 
 	//parse the from (GET this time)
@@ -50,5 +60,5 @@ func redirectHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//otherwise print that this is an invalid url
-	fmt.Fprintf(w, "Invalid Short URL")
+	http.Error(w, "Invalid Short URL", http.StatusMisdirectedRequest)
 }
